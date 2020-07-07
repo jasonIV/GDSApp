@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet, Text, TextInput, Image, View, Button } from 'react-native';
 import { connect } from "react-redux";
 import logo from "../images/fav.png"
@@ -14,18 +14,6 @@ function Login(props) {
 
   const handleSignIn = (phone, password) => {
     props.signIn(phone,password)
-  }
-
-  const storeData = async(phone) => {
-    try{
-      await AsyncStorage.setItem(
-        "phoneKey",
-        phone
-      )
-    }
-    catch(err){
-      console.log(error)
-    }
   }
 
   const handleSignUp = () => {

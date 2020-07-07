@@ -1,5 +1,5 @@
-import React,{ useEffect, useState } from 'react';
-import { AsyncStorage, FlatList, StyleSheet, SafeAreaView, View, Text } from 'react-native';
+import React from 'react';
+import { FlatList, StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { fetchUserData } from "../actions/dashboardActions.js";
 
 export default function History({ route, navigation }) {

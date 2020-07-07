@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useEffect } from 'react';
 import { connect } from "react-redux";
 import { Linking, FlatList, StyleSheet, View, Text, Button } from 'react-native';
 import { fetchUserData, fetchUrl } from "../actions/dashboardActions.js";

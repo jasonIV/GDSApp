@@ -23,6 +23,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "GDS app version",
+    "githubUrl": "https://github.com/jasonIV/GDSApp.git"
   }
 }

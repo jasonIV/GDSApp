@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { AsyncStorage, StyleSheet, Text, TextInput, Image, View, Button } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, TextInput, Image, View, Button } from 'react-native';
+import { connect } from "react-redux";
 import logo from "../images/fav.png"
 import { signIn } from "../actions/authActions"
 
-export default function Login({ navigation }) {
+function Login(props) {
+
+  const { navigation } = props;
   const [phone,onChangePhone] = useState("")
   const [password,onChangePassword] = useState("")
   const [justifyContent, setContent] = useState('center')
   const [padding, setPadding] = useState(0)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    setError(null)
-  },[])
 
   const handleSignIn = (phone, password) => {
-    signIn(phone,password)
-    .then(json => {
-      if(json.isAuthenticated){
-        storeData(phone)
-        setError(null)
-        navigation.navigate("Dashboard")
-      }
-      setError("Your credentials are incorrect. Please try again.")
-    })
-    .catch(err => setError("Seems like there is something wrong with your connection. Please try again later."));
+    props.signIn(phone,password)
   }
 
   const storeData = async(phone) => {
@@ -59,13 +48,28 @@ export default function Login({ navigation }) {
         <Image style={styles.logo} source={logo}/>
         <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="telephoneNumber" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
         <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
+        { props.err && 
+          <View style={styles.errorContainer}>
+            <Text style={styles.error}>{props.err}</Text> 
+          </View>
+        }
         <View style={styles.btnSignIn}>
           <Button title="Sign In" color="#ED2424" onPress={() => handleSignIn(phone,password)} />
         </View>
-        <Button title="Dont have account? Sign up here." color="#ED2424" onPress={handleSignUp} />
+        <TouchableOpacity onPress={handleSignUp}>
+          <Text style={{color: "#ED2424", fontSize: 16}}>Don't have an account? Sign up here.</Text>
+        </TouchableOpacity>
       </View>
   );
 }
+
+const mapStateToProps = store => {
+  return {
+    err: store.auth.err,
+  }
+}
+
+export default connect(mapStateToProps, { signIn })(Login);
 
 const styles = StyleSheet.create({
   container: {
@@ -105,4 +109,17 @@ const styles = StyleSheet.create({
     borderColor: "#ED2424",
     borderRadius: 40,
   },
+  errorContainer: {
+    width: "100%",
+    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#ffcccc",
+    borderWidth: 1,
+    borderColor: "#ED2424",
+    borderRadius: 40,
+  },
+  error: {
+    fontSize: 20,
+    color: "#ED2424",
+  }
 });

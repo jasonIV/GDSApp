@@ -2,41 +2,19 @@ import React,{ useEffect, useState } from 'react';
 import { AsyncStorage, FlatList, StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { fetchUserData } from "../actions/dashboardActions.js";
 
-export default function History({ navigation }) {
+export default function History({ route, navigation }) {
 
-  const [history, setHistory] = useState([])
-
-  const fetchData = async() => {
-    try{
-      const phoneKey = await AsyncStorage.getItem("phoneKey")
-      return phoneKey;
-    }
-    catch(err){
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-   fetchData()
-   .then(res => 
-     fetchUserData(res)
-     .then(res => {
-        setHistory(res.Item.transactions.slice(0).reverse())
-      })
-     .catch(err => console.log(err))
-   )
-   .catch(err => console.log(err))
-  },[])
+  const { transactions } = route.params;
 
   return(
     <SafeAreaView style={styles.historyContainer}>
-      {isEmpty(history) ? 
+      {isEmpty(transactions) ? 
         <View style={{alignItems: "center"}}>
           <Text style={{fontSize: 20}}>Your history is empty.</Text>
         </View>
         :
         <FlatList
-          data={history}
+          data={transactions.slice(0).reverse()}
           renderItem={({item}) => <Item item={item} /> }
           keyExtractor={item => item.trans_id}
         />

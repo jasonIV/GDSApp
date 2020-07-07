@@ -1,8 +1,10 @@
 import { baseApiUrl } from "../config";
+import { SIGN_IN_SUCCESS, SIGN_IN_LOADING, SIGN_IN_ERROR, SIGN_OUT_SUCCESS } from "../reducers/authReducer"
 
-export async function signIn(phone, password) {
-  try {
-    let response = await fetch(
+export const signIn = (phone, password) => {
+  return(dispatch) => {
+    dispatch({type: SIGN_IN_LOADING})
+    fetch(
       `${baseApiUrl}/auth/login`,
       {
         method: 'POST',
@@ -14,11 +16,25 @@ export async function signIn(phone, password) {
           phone: phone,
           password: password,
         })
-      });
-    let json = await response.json();
-    return json.body
-  } catch (error) {
-      console.error(error);
+      })
+    .then(res => res.json())
+    .then(res => {
+      if(res.body.phone){
+        dispatch({type: SIGN_IN_SUCCESS, phone: res.body.phone})
+      }
+      else{
+        dispatch({type: SIGN_IN_ERROR, err: res.body})
+      }
+    })
+    .catch(err => 
+      dispatch({type: SIGN_IN_ERROR})
+    )
+  }
+}
+
+export const signOut = () => {
+  return(dispatch) => {
+    dispatch({type: SIGN_OUT_SUCCESS})
   }
 }
 

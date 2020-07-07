@@ -38,7 +38,7 @@ export default function SignUp ({ navigation }){
       <View style={[styles.container, { justifyContent: justifyContent, padding: padding }]}>
         <Text style={styles.title}>GDS Sign Up</Text>
         <Image style={styles.logo} source={logo}/>
-        <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="name" returnKeyType="done" placeholder="Username" placeholderTextColor="grey" value={name} onChangeText={name => onChangeName(username)}/>
+        <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="name" returnKeyType="done" placeholder="Username" placeholderTextColor="grey" value={name} onChangeText={name => onChangeName(name)}/>
         <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="telephoneNumber" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
         <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
         <View style={styles.btnSignUp}>

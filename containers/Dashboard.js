@@ -1,50 +1,28 @@
 import React,{ useEffect, useState } from 'react';
-import { AsyncStorage, Linking, FlatList, StyleSheet, View, Text, Button } from 'react-native';
+import { connect } from "react-redux";
+import { Linking, FlatList, StyleSheet, View, Text, Button } from 'react-native';
 import { fetchUserData, fetchUrl } from "../actions/dashboardActions.js";
+import { signOut } from "../actions/authActions"
 
-export default function Dashboard({ navigation }){
-
-  const [username, setUsername] = useState("")
-  const [balance, setBalance] = useState(null)
-
-  const fetchData = async() => {
-    try{
-      const phoneKey = await AsyncStorage.getItem("phoneKey")
-      return phoneKey;
-    }
-    catch(err){
-      console.log(err)
-    }
-  }
+function Dashboard(props){
+  const { phone, username, balance, transactions, navigation } = props;
 
   useEffect(() => {
-   fetchData()
-   .then(res =>
-     fetchUserData(res)
-     .then(res => {
-        setUsername(res.Item.username)
-        setBalance(res.Item.gds_balance)
-      })
-     .catch(err => console.log(err))
-   )
-   .catch(err => console.log(err))
+   props.fetchUserData(phone)
   },[])
 
   const handleBayDin = () => {
-    fetchData()
-    .then(res => 
-      fetchUrl(res)
-      .then(res => Linking.openURL(res))
-      .catch(err => console.log(err))
-    )
+    fetchUrl(phone)
+    .then(res => Linking.openURL(res))
     .catch(err => console.log(err))
   }
+
   const handleHistory = () => {
-    navigation.navigate("History")
+    navigation.navigate("History", {transactions})
   }
 
   const handleSignOut = () => {
-    navigation.navigate("Login")
+    props.signOut();
   }
 
   return (
@@ -82,6 +60,18 @@ export default function Dashboard({ navigation }){
   )
 }
 
+const mapStateToProps = store => {
+  return{
+    phone: store.auth.phone,
+    username: store.dashboard.username,
+    balance: store.dashboard.balance,
+    transactions: store.dashboard.transactions,
+    loading: store.dashboard.loading,
+    err: store.dashboard.err,
+  }
+}
+
+export default connect(mapStateToProps, { signOut, fetchUserData })(Dashboard)
 
 const styles = StyleSheet.create({
   container: {

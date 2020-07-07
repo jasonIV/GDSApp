@@ -1,8 +1,10 @@
 import { baseApiUrl } from "../config";
+import { FETCH_SUCCESS, FETCH_LOADING, FETCH_ERROR } from "../reducers/dashboardReducer";
 
-export async function fetchUserData(phone){
-  try{
-    let response = await fetch(
+export const fetchUserData = (phone) => {
+  return(dispatch) => {
+    dispatch({type: FETCH_LOADING})
+    fetch(
       `https://efi2torz90.execute-api.ap-southeast-1.amazonaws.com/staging/balance/read`,
       {
         method: "POST",
@@ -13,12 +15,11 @@ export async function fetchUserData(phone){
         body: JSON.stringify({
           phone: phone,
         })
-      })
-    let json = await response.json();
-    return json.body;
-  }
-  catch(error){
-    console.log(error)
+      }
+    )
+    .then(res => res.json())
+    .then(res => dispatch({type: FETCH_SUCCESS, username: res.body.Item.username, balance: res.body.Item.gds_balance, transactions: res.body.Item.transactions}))
+    .catch(err => dispatch({type: FETCH_ERROR, err: "Something Wrong."}))
   }
 }
 

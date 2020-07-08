@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, Image, View, Button } from 'react-native';
-import logo from "../images/fav.png"
+import logo from "../assets/fav.png"
 import { signUp } from "../actions/authActions"
 
 export default function SignUp ({ navigation }){

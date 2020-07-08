@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet, Text, TextInput, Image, View, Button } from 'react-native';
 import { connect } from "react-redux";
-import logo from "../images/fav.png"
+import logo from "../assets/fav.png"
 import { signIn } from "../actions/authActions"
 
 function Login(props) {

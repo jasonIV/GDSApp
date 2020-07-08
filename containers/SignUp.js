@@ -42,7 +42,7 @@ export default function SignUp ({ navigation }){
         <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="telephoneNumber" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
         <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
         <View style={styles.btnSignUp}>
-          <Button title="Sign Up" color="#FFF" onPress={() => handleSignUp(phone, password)}/>
+          <Button title="Sign Up" color="#FFF" onPress={() => handleSignUp(name, phone, password)}/>
         </View>
       </View>
   );

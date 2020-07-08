@@ -22,9 +22,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.thamardaw.gds",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
-    "description": "GDS app version",
+    "description": "GDS app alpha",
     "githubUrl": "https://github.com/jasonIV/GDSApp.git"
   }
 }

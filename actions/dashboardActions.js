@@ -1,5 +1,5 @@
 import { baseApiUrl } from "../config";
-import { FETCH_SUCCESS, FETCH_LOADING, FETCH_ERROR } from "../reducers/dashboardReducer";
+import { FETCH_SUCCESS, FETCH_LOADING, FETCH_ERROR, URL_SUCCESS, URL_ERROR } from "../reducers/dashboardReducer";
 
 export const fetchUserData = (phone) => {
   return(dispatch) => {
@@ -23,13 +23,14 @@ export const fetchUserData = (phone) => {
   }
 }
 
-export async function fetchUrl(user_agent){
-  try{
-    let response = await fetch(
-      "https://agent_api.mintheinkha.com/agent/demo/request",
+export const fetchUrl = (user_agent) => {
+  return(dispatch) => {
+    fetch(
+      `https://agent_api.mintheinkha.com/agent/demo/request`,
       {
         method: "POST",
         headers: {
+          Accept: 'application/json',
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -39,10 +40,13 @@ export async function fetchUrl(user_agent){
           user_agent: user_agent
         })
       })
-    let json = await response.json();
-    return json.mtk_agent_form;
-  }
-  catch(err){
-    console.log(err);
+      .then(res => {
+        console.log(res)
+        dispatch({type: URL_SUCCESS, url: "something"})
+      })
+      .catch(err => {
+        dispatch({type: URL_ERROR, err: err})
+        console.log(err)
+      })
   }
 }

@@ -5,17 +5,15 @@ import { fetchUserData, fetchUrl } from "../actions/dashboardActions.js";
 import { signOut } from "../actions/authActions"
 
 function Dashboard(props){
-  const { phone, username, balance, transactions, navigation } = props;
+  const { phone, username, balance, transactions, url, navigation } = props;
 
   useEffect(() => {
    props.fetchUserData(phone)
   },[])
 
-  const handleBayDin = () => {
-    fetchUrl(phone)
-    .then(res => Linking.openURL(res))
-    .catch(err => console.log(err))
-  }
+  // const handleBayDin = () => {
+  //   props.fetchUrl(phone)
+  // }
 
   const handleHistory = () => {
     navigation.navigate("History", {transactions})
@@ -47,9 +45,6 @@ function Dashboard(props){
       </View>
       <View style={styles.buttonRow}> 
         <View style={styles.buttonContainer} > 
-          <Button title="Ask Baydin" color="#ED2424" onPress={handleBayDin} />
-        </View>
-        <View style={styles.buttonContainer} > 
           <Button title="History" color="#ED2424" onPress={handleHistory} />
         </View>
         <View style={styles.buttonContainer} > 
@@ -66,12 +61,13 @@ const mapStateToProps = store => {
     username: store.dashboard.username,
     balance: store.dashboard.balance,
     transactions: store.dashboard.transactions,
+    url: store.dashboard.url,
     loading: store.dashboard.loading,
     err: store.dashboard.err,
   }
 }
 
-export default connect(mapStateToProps, { signOut, fetchUserData })(Dashboard)
+export default connect(mapStateToProps, { signOut, fetchUserData, fetchUrl })(Dashboard)
 
 const styles = StyleSheet.create({
   container: {
@@ -113,8 +109,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginLeft: 10,
     marginRight: 10,
-    borderWidth: 1,
-    borderColor: "#ED2424",
-    borderRadius: 30,
   }
 })

@@ -5,15 +5,21 @@ import { fetchUserData, fetchUrl } from "../actions/dashboardActions.js";
 import { signOut } from "../actions/authActions"
 
 function Dashboard(props){
-  const { phone, username, balance, transactions, url, navigation } = props;
+  const { phone, username, balance, transactions, loading, url, navigation } = props;
 
   useEffect(() => {
    props.fetchUserData(phone)
   },[])
 
-  // const handleBayDin = () => {
-  //   props.fetchUrl(phone)
-  // }
+  useEffect(() => {
+    if(url){
+      Linking.openURL(url)
+    }
+  },[url])
+
+  const handleBayDin = () => {
+    props.fetchUrl(phone)
+  }
 
   const handleHistory = () => {
     navigation.navigate("History", {transactions})
@@ -45,6 +51,13 @@ function Dashboard(props){
       </View>
       <View style={styles.buttonRow}> 
         <View style={styles.buttonContainer} > 
+          {loading ? 
+            <Button title="Loading" color="#ED2424" onPress={handleBayDin} />
+            :
+            <Button title="Ask Baydin" color="#ED2424" onPress={handleBayDin} />
+          }
+        </View>
+        <View style={styles.buttonContainer} > 
           <Button title="History" color="#ED2424" onPress={handleHistory} />
         </View>
         <View style={styles.buttonContainer} > 
@@ -62,7 +75,7 @@ const mapStateToProps = store => {
     balance: store.dashboard.balance,
     transactions: store.dashboard.transactions,
     url: store.dashboard.url,
-    loading: store.dashboard.loading,
+    loading: store.dashboard.uloading,
     err: store.dashboard.err,
   }
 }

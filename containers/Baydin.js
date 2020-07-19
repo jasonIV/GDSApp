@@ -8,8 +8,6 @@ function Baydin(props){
 
   const { phone, url, err, navigation } = props;
 
-  console.log(url)
-
   useEffect(() => {
     props.fetchUrl(phone);
   },[])

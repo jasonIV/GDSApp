@@ -11,8 +11,6 @@ import Baydin from "./containers/Baydin"
 
 const Stack = createStackNavigator();
 
-enableScreens(); //Memory Optimization
-
 function AppNavigator(props){
   const { auth } = props;
   return(

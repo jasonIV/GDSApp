@@ -1,20 +1,13 @@
-import React from "react";
-
 //types
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_LOADING = "FETCH_LOADING";
 export const FETCH_ERROR = "FETCH_ERROR";
-export const URL_SUCCESS = "URL_SUCCESS";
-export const URL_LOADING = "URL_LOADING";
-export const URL_ERROR = "URL_ERROR";
 
 initialState = {
   username: null,
   balance: null,
   transactions: [],
   loading: false,
-  uloading: false,
-  url: null,
   err: null,
 }
 
@@ -48,27 +41,6 @@ export default function(state = initialState, action) {
         balance: null,
         transactions: [],
         loading: false,
-        url: null,
-        err: action.err,
-      }
-    case URL_SUCCESS:
-      return {
-        ...state,
-        uloading: false,
-        url: action.url,
-        err: null,
-      }
-    case URL_LOADING:
-      return {
-        ...state,
-        uloading: true,
-        url: null,
-        err: null,
-      }
-    case URL_ERROR:
-      return {
-        ...state,
-        uloading: false,
         url: null,
         err: action.err,
       }

@@ -6,7 +6,7 @@ import { signIn } from "../actions/authActions"
 
 function Login(props) {
 
-  const { navigation } = props;
+  const { loading, err, navigation } = props;
   const [phone,onChangePhone] = useState("")
   const [password,onChangePassword] = useState("")
 
@@ -24,14 +24,18 @@ function Login(props) {
         style={styles.container} >
         <Text style={styles.title}>GDS Sign In</Text>
         <Image style={styles.logo} source={logo}/>
-        <TextInput style={styles.textBox} textContentType="telephoneNumber" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
+        <TextInput style={styles.textBox} textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
         <TextInput style={styles.textBox} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
-        { props.err && 
+        { err && 
           <View style={styles.errorContainer}>
             <Text style={styles.error}>{props.err}</Text> 
           </View>
         }
-        <Button title="Sign In" color="#ED2424" onPress={() => handleSignIn(phone,password)} />
+        { loading ? 
+          <Button title="Loading..." color="#ED2424" />
+            :
+          <Button title="Sign In" color="#ED2424" onPress={() => handleSignIn(phone,password)} />
+        }
         <TouchableOpacity onPress={handleSignUp}>
           <Text style={{paddingTop: 5, color: "#ED2424", fontSize: 16}}>Don't have an account? Sign up here.</Text>
         </TouchableOpacity>
@@ -42,6 +46,7 @@ function Login(props) {
 const mapStateToProps = store => {
   return {
     err: store.auth.err,
+    loading: store.auth.isLoading,
   }
 }
 

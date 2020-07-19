@@ -1,24 +1,18 @@
 import React,{ useEffect } from 'react';
 import { connect } from "react-redux";
-import { Linking, FlatList, StyleSheet, View, Text, Button } from 'react-native';
-import { fetchUserData, fetchUrl } from "../actions/dashboardActions.js";
+import { StyleSheet, View, Text, Button } from 'react-native';
+import { fetchUserData } from "../actions/dashboardActions.js";
 import { signOut } from "../actions/authActions"
 
 function Dashboard(props){
-  const { phone, username, balance, transactions, loading, url, navigation } = props;
+  const { phone, username, balance, transactions, navigation } = props;
 
   useEffect(() => {
    props.fetchUserData(phone)
   },[])
 
-  useEffect(() => {
-    if(url){
-      Linking.openURL(url)
-    }
-  },[url])
-
   const handleBayDin = () => {
-    props.fetchUrl(phone)
+    navigation.navigate("Baydin")
   }
 
   const handleHistory = () => {
@@ -51,11 +45,7 @@ function Dashboard(props){
       </View>
       <View style={styles.buttonRow}> 
         <View style={styles.buttonContainer} > 
-          {loading ? 
-            <Button title="Loading" color="#ED2424" onPress={handleBayDin} />
-            :
-            <Button title="Ask Baydin" color="#ED2424" onPress={handleBayDin} />
-          }
+          <Button title="Ask Baydin" color="#ED2424" onPress={handleBayDin} />
         </View>
         <View style={styles.buttonContainer} > 
           <Button title="History" color="#ED2424" onPress={handleHistory} />
@@ -74,13 +64,11 @@ const mapStateToProps = store => {
     username: store.dashboard.username,
     balance: store.dashboard.balance,
     transactions: store.dashboard.transactions,
-    url: store.dashboard.url,
-    loading: store.dashboard.uloading,
     err: store.dashboard.err,
   }
 }
 
-export default connect(mapStateToProps, { signOut, fetchUserData, fetchUrl })(Dashboard)
+export default connect(mapStateToProps, { signOut, fetchUserData })(Dashboard)
 
 const styles = StyleSheet.create({
   container: {

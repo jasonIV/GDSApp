@@ -29,7 +29,7 @@ export default function SignUp ({ navigation }){
         <Text style={styles.title}>GDS Sign Up</Text>
         <Image style={styles.logo} source={logo}/>
         <TextInput style={styles.textBox} textContentType="name" returnKeyType="done" placeholder="Username" placeholderTextColor="grey" value={name} onChangeText={name => onChangeName(name)}/>
-        <TextInput style={styles.textBox} textContentType="telephoneNumber" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
+        <TextInput style={styles.textBox} textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
         <TextInput style={styles.textBox} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
         <Button title="Sign Up" color="#ED2424" onPress={() => handleSignUp(name, phone, password)}/>
       </KeyboardAvoidingView>

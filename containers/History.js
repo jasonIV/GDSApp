@@ -1,27 +1,54 @@
-import React from 'react';
+import React,{ useEffect }from 'react';
+import { connect } from "react-redux";
 import { FlatList, StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { fetchUserData } from "../actions/dashboardActions.js";
 
-export default function History({ route, navigation }) {
+function History(props) {
+  
+  const { route, navigation, transactions, loading } = props;
+  const { phone } = route.params;
 
-  const { transactions } = route.params;
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+     props.fetchUserData(phone)
+    })
+    return unsubscribe;
+  },[navigation])
+
 
   return(
     <SafeAreaView style={styles.historyContainer}>
-      {isEmpty(transactions) ? 
+      {loading ? 
         <View style={{alignItems: "center"}}>
-          <Text style={{fontSize: 20}}>Your history is empty.</Text>
+          <Text style={{fontSize: 20}}>Loading...</Text>
         </View>
         :
-        <FlatList
-          data={transactions.slice(0).reverse()}
-          renderItem={({item}) => <Item item={item} /> }
-          keyExtractor={item => item.trans_id}
-        />
+        <>
+        {transactions.length > 0 ?
+          <FlatList
+            data={transactions.slice(0).reverse()}
+            renderItem={({item}) => <Item item={item} /> }
+            keyExtractor={item => item.trans_id}
+          />
+          :
+          <View style={{alignItems: "center"}}>
+            <Text style={{fontSize: 20}}>Your history is empty.</Text>
+          </View>
+        }
+        </>
       }
     </SafeAreaView>
   )
 }
+
+const mapStateToProps = store => {
+  return{
+    transactions: store.dashboard.transactions,
+    loading: store.dashboard.loading,
+  }
+}
+
+export default connect(mapStateToProps, { fetchUserData })(History)
 
 function Item({item}) {
   return(
@@ -40,13 +67,6 @@ function Item({item}) {
       </View>
     </View>
   )
-}
-
-const isEmpty = (arr) => {
-  if(arr.length){
-    return false;
-  }
-  return true;
 }
 
 const styles = StyleSheet.create({

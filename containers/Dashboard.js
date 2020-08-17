@@ -8,15 +8,18 @@ function Dashboard(props){
   const { phone, username, balance, transactions, navigation } = props;
 
   useEffect(() => {
-   props.fetchUserData(phone)
-  },[])
+    const unsubscribe = navigation.addListener('focus', () => {
+     props.fetchUserData(phone)
+    })
+    return unsubscribe;
+  },[navigation])
 
   const handleBayDin = () => {
     navigation.navigate("Baydin")
   }
 
   const handleHistory = () => {
-    navigation.navigate("History", {transactions})
+    navigation.navigate("History", {phone})
   }
 
   const handleSignOut = () => {

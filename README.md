@@ -1,6 +1,4 @@
-#GDS Application 1.0.0
+**GDS Application 1.0.0**
 
-#Author
-jasonIV
-
-#License
+**Author**
+>jasonIV

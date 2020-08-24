@@ -23,6 +23,7 @@ export default function SignUp ({ navigation }){
   }
 
   return (
+    <>
       <KeyboardAvoidingView 
         behavior={Platform.OS == "ios" ? "padding" : "height"} 
         style={styles.container}>
@@ -33,6 +34,10 @@ export default function SignUp ({ navigation }){
         <TextInput style={styles.textBox} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
         <Button title="Sign Up" color="#ED2424" onPress={() => handleSignUp(name, phone, password)}/>
       </KeyboardAvoidingView>
+      <View style={styles.footer}>
+        <Text style={styles.footerText} >GDS Application Version 1.0.0</Text>
+      </View>
+    </>
   );
 }
 
@@ -65,5 +70,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 40,
   },
+  footer: {
+    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#FFF",
+  },
+  footerText: {
+    fontSize: 12,
+    color: "gray"
+  }
 });
 

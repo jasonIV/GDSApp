@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   footer: {
     padding: 10,
     alignItems: "center",
-    backgroundColor: "#FFF",
+    backgroundColor: "#FFF"
   },
   footerText: {
     fontSize: 12,

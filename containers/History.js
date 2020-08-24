@@ -72,7 +72,8 @@ function Item({item}) {
 const styles = StyleSheet.create({
   historyContainer: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "#FFF"
   },
   historyBorder: {
     paddingTop: 5,
@@ -90,4 +91,13 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 16
   },
+  footer: {
+    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#FFF",
+  },
+  footerText: {
+    fontSize: 12,
+    color: "gray"
+  }
 })

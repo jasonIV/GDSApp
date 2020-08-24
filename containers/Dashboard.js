@@ -27,6 +27,7 @@ function Dashboard(props){
   }
 
   return (
+  <>
     <View style={styles.container}>
       <View style={styles.userData} >
         <View style={styles.header}>
@@ -58,6 +59,10 @@ function Dashboard(props){
         </View>
       </View>
     </View>
+    <View style={styles.footer}>
+      <Text style={styles.footerText} >GDS Application Version 1.0.0</Text>
+    </View>
+  </>
   )
 }
 
@@ -113,5 +118,14 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginLeft: 10,
     marginRight: 10,
+  },
+  footer: {
+    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#FFF",
+  },
+  footerText: {
+    fontSize: 12,
+    color: "gray"
   }
 })

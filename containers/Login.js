@@ -19,6 +19,7 @@ function Login(props) {
   }
 
   return (
+    <>
       <KeyboardAvoidingView 
         behavior={Platform.OS == "ios" ? "padding" : "height"} 
         style={styles.container} >
@@ -40,6 +41,10 @@ function Login(props) {
           <Text style={{paddingTop: 5, color: "#ED2424", fontSize: 16}}>Don't have an account? Sign up here.</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+      <View style={styles.footer}>
+        <Text style={styles.footerText} >GDS Application Version 1.0.0</Text>
+      </View>
+    </>
   );
 }
 
@@ -93,5 +98,14 @@ const styles = StyleSheet.create({
   error: {
     fontSize: 20,
     color: "#ED2424",
+  },
+  footer: {
+    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#FFF",
+  },
+  footerText: {
+    fontSize: 12,
+    color: "gray"
   }
 });

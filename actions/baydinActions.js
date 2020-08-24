@@ -14,8 +14,8 @@ export const fetchUrl = (user_agent) => {
         },
         body: JSON.stringify({
           mtk_agent: "medi",
-          mtk_agent_code: " MDI1850",
-          mtk_agent_secret: "834jfi4389rjkf089trkjjsajkr89437",
+          mtk_agent_code: "MEDI9654",
+          mtk_agent_secret: "259kj2345k2034jdf893jkd893jfd8",
           user_agent: user_agent
         })
       })

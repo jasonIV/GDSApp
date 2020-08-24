@@ -5,7 +5,7 @@ export const fetchUserData = (phone) => {
   return(dispatch) => {
     dispatch({type: FETCH_LOADING})
     fetch(
-      `https://efi2torz90.execute-api.ap-southeast-1.amazonaws.com/staging/balance/read`,
+      `${baseApiUrl}/balance/read`,
       {
         method: "POST",
         headers: {

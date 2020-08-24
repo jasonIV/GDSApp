@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, Image, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, Image, KeyboardAvoidingView, View, Button } from 'react-native';
 import logo from "../assets/fav.png"
 import { signUp } from "../actions/authActions"
 
@@ -7,8 +7,6 @@ export default function SignUp ({ navigation }){
   const [name,onChangeName] = useState("")
   const [phone,onChangePhone] = useState("")
   const [password,onChangePassword] = useState("")
-  const [justifyContent, setContent] = useState('center')
-  const [padding, setPadding] = useState(0)
 
   const handleSignUp = (name, phone, password) => {
     signUp(name,phone,password)
@@ -24,27 +22,17 @@ export default function SignUp ({ navigation }){
     .catch(err => console.log(err))
   }
 
-  const onFocus = () => {
-    setContent("flex-start")
-    setPadding(20)
-  }
-
-  const onBlur = () => {
-    setContent("center")
-    setPadding(0)
-  }
-
   return (
-      <View style={[styles.container, { justifyContent: justifyContent, padding: padding }]}>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS == "ios" ? "padding" : "height"} 
+        style={styles.container}>
         <Text style={styles.title}>GDS Sign Up</Text>
         <Image style={styles.logo} source={logo}/>
-        <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="name" returnKeyType="done" placeholder="Username" placeholderTextColor="grey" value={name} onChangeText={name => onChangeName(name)}/>
-        <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="telephoneNumber" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
-        <TextInput style={styles.textBox} onFocus={onFocus} onBlur={onBlur} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
-        <View style={styles.btnSignUp}>
-          <Button title="Sign Up" color="#FFF" onPress={() => handleSignUp(name, phone, password)}/>
-        </View>
-      </View>
+        <TextInput style={styles.textBox} textContentType="name" returnKeyType="done" placeholder="Username" placeholderTextColor="grey" value={name} onChangeText={name => onChangeName(name)}/>
+        <TextInput style={styles.textBox} textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" placeholder="Phone" placeholderTextColor="grey" value={phone} onChangeText={phone => onChangePhone(phone)}/>
+        <TextInput style={styles.textBox} textContentType="password" returnKeyType="done" secureTextEntry={true} placeholder="Password" placeholderTextColor="grey" value={password} onChangeText={password => onChangePassword(password)}/>
+        <Button title="Sign Up" color="#ED2424" onPress={() => handleSignUp(name, phone, password)}/>
+      </KeyboardAvoidingView>
   );
 }
 
@@ -52,16 +40,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: "center",
     backgroundColor: '#FFF'
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     color: "#ED2424",
   },
   logo: {
     margin: 10,
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderColor: "#ED2424",
     borderWidth: 1,
     borderRadius: 100,
@@ -74,15 +63,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: "#ED2424",
     borderWidth: 1,
-    borderRadius: 40,
-  },
-  btnSignUp: {
-    margin: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    width: "auto",
-    height: "auto",
-    backgroundColor: "#ED2424",
     borderRadius: 40,
   },
 });

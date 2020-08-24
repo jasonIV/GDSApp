@@ -1,24 +1,25 @@
 import React,{ useEffect } from 'react';
 import { connect } from "react-redux";
-import { Linking, FlatList, StyleSheet, View, Text, Button } from 'react-native';
-import { fetchUserData, fetchUrl } from "../actions/dashboardActions.js";
+import { StyleSheet, View, Text, Button } from 'react-native';
+import { fetchUserData } from "../actions/dashboardActions.js";
 import { signOut } from "../actions/authActions"
 
 function Dashboard(props){
   const { phone, username, balance, transactions, navigation } = props;
 
   useEffect(() => {
-   props.fetchUserData(phone)
-  },[])
+    const unsubscribe = navigation.addListener('focus', () => {
+     props.fetchUserData(phone)
+    })
+    return unsubscribe;
+  },[navigation])
 
   const handleBayDin = () => {
-    fetchUrl(phone)
-    .then(res => Linking.openURL(res))
-    .catch(err => console.log(err))
+    navigation.navigate("Baydin")
   }
 
   const handleHistory = () => {
-    navigation.navigate("History", {transactions})
+    navigation.navigate("History", {phone})
   }
 
   const handleSignOut = () => {
@@ -66,7 +67,6 @@ const mapStateToProps = store => {
     username: store.dashboard.username,
     balance: store.dashboard.balance,
     transactions: store.dashboard.transactions,
-    loading: store.dashboard.loading,
     err: store.dashboard.err,
   }
 }
@@ -113,8 +113,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginLeft: 10,
     marginRight: 10,
-    borderWidth: 1,
-    borderColor: "#ED2424",
-    borderRadius: 30,
   }
 })

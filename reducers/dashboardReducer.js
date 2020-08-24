@@ -1,5 +1,3 @@
-import React from "react";
-
 //types
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_LOADING = "FETCH_LOADING";
@@ -23,6 +21,7 @@ export default function(state = initialState, action) {
         balance: action.balance,
         transactions: action.transactions,
         loading: false,
+        url: null,
         err: null,
       }
     case FETCH_LOADING:
@@ -32,6 +31,7 @@ export default function(state = initialState, action) {
         balance: null,
         transactions: [],
         loading: true,
+        url: null,
         err: null,
       }
     case FETCH_ERROR:
@@ -41,6 +41,7 @@ export default function(state = initialState, action) {
         balance: null,
         transactions: [],
         loading: false,
+        url: null,
         err: action.err,
       }
     default:

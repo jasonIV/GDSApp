@@ -22,27 +22,3 @@ export const fetchUserData = (phone) => {
     .catch(err => dispatch({type: FETCH_ERROR, err: "Something Wrong."}))
   }
 }
-
-export async function fetchUrl(user_agent){
-  try{
-    let response = await fetch(
-      "https://agent_api.mintheinkha.com/agent/demo/request",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          mtk_agent: "medi",
-          mtk_agent_code: " MDI1850",
-          mtk_agent_secret: "834jfi4389rjkf089trkjjsajkr89437",
-          user_agent: user_agent
-        })
-      })
-    let json = await response.json();
-    return json.mtk_agent_form;
-  }
-  catch(err){
-    console.log(err);
-  }
-}

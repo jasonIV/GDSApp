@@ -21,12 +21,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "bundleIdentifier": "com.thamardaw.gds",
-      "buildNumber": "1.0.0",
-      "supportsTablet": true
+    "android": {
+      "package": "com.jasonIV.gds",
+      "versionCode": 1
     },
-    "description": "GDS app alpha",
+    "description": "GDS",
     "githubUrl": "https://github.com/jasonIV/GDSApp.git"
   }
 }

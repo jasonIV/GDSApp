@@ -7,10 +7,9 @@ import Login from "./containers/Login"
 import Dashboard from "./containers/Dashboard"
 import SignUp from "./containers/SignUp"
 import History_ from "./containers/History"
+import Baydin from "./containers/Baydin"
 
 const Stack = createStackNavigator();
-
-enableScreens(); //Memory Optimization
 
 function AppNavigator(props){
   const { auth } = props;
@@ -21,6 +20,7 @@ function AppNavigator(props){
             <>
               <Stack.Screen name="Dashboard" component={Dashboard} />
               <Stack.Screen name="History" component={History_} />
+              <Stack.Screen name="Baydin" component={Baydin} />
             </>
             )
           :
